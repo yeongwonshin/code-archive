@@ -1,3 +1,4 @@
+//배열에 k가 여러 군데 존재할 때, 이 중복되는 위치를 모두 출력하는 프로그램
 #include <iostream>
 #include <vector>
 #include <algorithm>
