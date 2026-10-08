@@ -93,7 +93,7 @@ int main(){
         if(i==candidate) continue;
    bool candidateDoesNotKnowI =
         (eliminatedBy[i] == candidate && knownType[i] == 2);
-
+//후보가 i를 모르는지 검사
     if (!candidateDoesNotKnowI) {
         if (ask_a_to_know_b(candidate, i)) {
  
@@ -107,6 +107,7 @@ int main(){
         }
     }
     bool iKnowsCandidate = (eliminatedBy[i]==candidate&&knownType[i]==1);
+    //i가 후보를 아는지 검사
     if(!iKnowsCandidate){
         if(!ask_a_to_know_b(i, candidate)){
             delete[] eliminatedBy;
