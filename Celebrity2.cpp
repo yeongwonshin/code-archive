@@ -65,6 +65,7 @@ int main(){
     int p=1;
     while(p<=n/2) p*=2;//p는 n 이하의 가장 큰 2의 거듭제곱을 구하기 위한 코드
     
+    //토너먼트 전 예선을 치러서 2^k명이 되도록 줄인다.
     int preliminaryMatches = n-p;
     int currentCount = 0;
     for(int i =0;i<preliminaryMatches;i++){
@@ -72,9 +73,12 @@ int main(){
         int b = 2*i+2;
         current[currentCount++]= play_match(a,b);
     }
+    //예선에서 탈락한 사람들을 제외하고 나머지 사람들을 current에 넣는다.
     for(int person = 2*preliminaryMatches+1;person<=n;person++){
         current[currentCount++]=person;
     }
+    
+    //토너먼트 진행
     while(currentCount>1){
         int nextCount = 0;
         for(int i =0;i<currentCount;i+=2){
