@@ -63,7 +63,7 @@ int main(){
          }
     };
     int p=1;
-    while(p<=n/2) p*=2;
+    while(p<=n/2) p*=2;//p는 n 이하의 가장 큰 2의 거듭제곱을 구하기 위한 코드
     
     int preliminaryMatches = n-p;
     int currentCount = 0;
