@@ -51,3 +51,32 @@ int main() {
 
     return 0;
 }
+//위 프로그램은 O(NlogN) 시간에 k의 위치를 모두 찾는다.
+/* 아래의 프로그램은 O(N) 시간에 k의 위치를 모두 찾는다.
+
+vector<pair<int, int>> findAllK(int n, int k) {
+    vector<pair<int, int>> positions;
+
+    int left = 1;
+    int right = 1;
+
+    for (int row = 1; row <= n; row++) {
+
+        // K 이상인 첫 번째 열 탐색
+        while (left <= n && query_cell(row, left) < k)
+            left++;
+
+        // K 초과인 첫 번째 열 탐색
+        while (right <= n && query_cell(row, right) <= k)
+            right++;
+
+        // [left, right) 구간은 모두 K
+        for (int col = left; col < right; col++)
+            positions.push_back({row, col});
+    }
+
+    return positions;
+}
+
+
+*/
