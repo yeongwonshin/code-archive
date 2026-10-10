@@ -55,9 +55,11 @@ vector<int> min_multiplications(int n) {
          for(int i=depth;i>=0;i--){
              for(int j=i;j>=0;j--){
                  long long sum = static_cast<long long> (chain[i])+chain[j];
-                 if(sum<=last||sum>n)continue;
+                 if(sum<=last||sum>n)continue; 
+        //sum <= last이면 현재 값보다 커지지 않으므로 필요 없다.
+        //sum > n이면 목표를 넘어간다. 이후 지수는 계속 증가하기만 하므로 다시 n으로 내려올 수 없다.
                  bool duplicate = false;
-
+//같은 sum이 이미 후보에 들어 있는지 확인하기 위한 변수다.
                  for(int candidate:candidates){
                      if(candidate==sum){
                          duplicate=true;
@@ -67,8 +69,8 @@ vector<int> min_multiplications(int n) {
                  if(duplicate) continue;
 
                  int pos = 0;
-                 while(pos<static_cast<int> (candidates.size())&&candidates[pos]>sum)pos++;
-
+                 while(pos < static_cast<int> (candidates.size())&&candidates[pos]>sum)pos++;
+//candidates를 큰 값부터 작은 값 순서로 유지하기 위해 삽입 위치를 찾는다.
                  candidates.insert(candidates.begin()+pos, static_cast<int>(sum));
              }
          }
