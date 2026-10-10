@@ -28,7 +28,7 @@ int main() {
             matrix[row].end(),
             k
         );
-
+//k이상의 첫 번째 원소를 찾는다. lower_bound는 이진 탐색을 사용하므로 O(logN) 시간에 찾을 수 있다.
         auto last = upper_bound(
             matrix[row].begin(),
             matrix[row].end(),
