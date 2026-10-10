@@ -71,6 +71,8 @@ vector<int> min_multiplications(int n) {
                  int pos = 0;
                  while(pos < static_cast<int> (candidates.size())&&candidates[pos]>sum)pos++;
 //candidates를 큰 값부터 작은 값 순서로 유지하기 위해 삽입 위치를 찾는다.
+//큰 값부터 탐색하는 이유는 목표 n에 빨리 가까워지는 경로를 먼저 시도하기 위해서다.
+//정답의 정확성에는 영향을 주지 않고 탐색 속도를 높이기 위한 방법이다.
                  candidates.insert(candidates.begin()+pos, static_cast<int>(sum));
              }
          }
