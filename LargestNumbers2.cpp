@@ -12,7 +12,7 @@ vector<int> findNLargestElements(const vector<vector<int>>& matrix, int n) {
     while(size<k)size*=2; 
 
     vector<int> tree(2*size, -1);
-
+//tree[1]: 루트 노드
     for(int i =0; i<k; i++) tree[size+i]=i;
     auto bigger = [&](int a, int b)->int{
           if(a==-1) return b;
