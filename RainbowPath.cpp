@@ -59,7 +59,8 @@ int main() {
                pq.push({dist[v], i});
 
            }
-        }
+        }//시작 정점 S에서 각 정점까지의 누적 최단 거리를 가져오는 코드
+
         while (!pq.empty()){
             auto [curDist, u]=pq.top();
             pq.pop();
@@ -70,11 +71,14 @@ int main() {
                     pq.push({tempDist[v], v});
                 }
             }
-        }
+        }//앞서 우선순위 큐(pq)에 넣은 정점들을 출발 후보로 삼아,
+        // 현재 색상의 간선들을 따라 이동하면서 S에서 각 정점까지의 최단 거리를 갱신하는 과정
+        
         for(int i=0; i<sz; i++){
              int v = vertices[i];
              dist[v]=min(dist[v], tempDist[i]);
-        }
+        }//현재 색상의 다익스트라에서 계산한 최단 거리 tempDist를 전체 최단 거리 배열 dist에 반영하는 과정
+        
         for(int v: vertices){
             id[v]=-1;
 
