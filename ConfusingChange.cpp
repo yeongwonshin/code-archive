@@ -29,7 +29,7 @@ int main() {
 */
 
          __int128 limit = min(target, (__int128)N*X);
-//limit은 다음에 추가할 동전의 가치 X를 가진 동전을 추가했을 때, 목표값 target을 초과하지 않도록 제한한 값
+//limit은 현재 가치 X인 동전을 몇 개까지 연속해서 추가할 것인지 결정하기 위한 경계값
          __int128 cnt = (limit - S + X -1)/X;
          S += cnt *X;
          ans+=(long long)cnt;
