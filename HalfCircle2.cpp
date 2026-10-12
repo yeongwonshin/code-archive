@@ -39,6 +39,7 @@ int main() {
         }
         minAngle = min(minAngle, angle);
         maxAngle = max(maxAngle, angle);
+ // 기준 벡터를 중심으로 다른 벡터가 반시계 방향에 있는지, 시계 방향에 있는지 확인하는 코드
         if(angle>EPS)positiveSide=true;
         if(angle<-EPS)negativeSide=true;
     }
