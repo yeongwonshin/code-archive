@@ -42,7 +42,7 @@ int main() {
         for(auto &e: graph[u]){
             int v= e.to;
             if(v==parent[u])continue;
-
+//트리는 무방향 그래프이므로 자식에서 부모로 다시 이동하는 것을 방지하기 위함.
             parent[v]=u;
             parentWeight[v]=e.w;
             st.push(v);
