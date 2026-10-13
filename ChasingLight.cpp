@@ -44,7 +44,7 @@ int main() {
         if (arrival <= lights[i].e) {
             ll start = max(arrival, lights[i].s);
             dp[i] = lights[i].e - start;
-        }
+        }//빛 i를 마지막으로 이용했을 때 얻을 수 있는 최대 누적 에너지
 
         // 이전 빛 j에서 현재 빛 i로 이동
         for (int j = 0; j < i; j++) {
