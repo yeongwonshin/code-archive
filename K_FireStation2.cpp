@@ -46,7 +46,6 @@ int main() {
             parent[v]=u;
             parentWeight[v]=e.w;
             st.push(v);
-
         }
     }
     vector<long long> downHeight(N+1, 0);
