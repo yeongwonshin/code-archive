@@ -54,7 +54,9 @@ int main() {
 
         memset(field, 0, sizeof(field));
         memset(visited, 0, sizeof(visited));
-
+        /*field, vistied를 전역변수로 선언했기에 이미 0으로 초기화되어있지만,
+         테스트케이스마다 초기화해주기 위해 memset을 사용한다.
+*/
         for (int i = 0; i < K; i++) {
             int x, y;
             cin >> x >> y;
