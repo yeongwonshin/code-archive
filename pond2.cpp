@@ -122,6 +122,7 @@ using ll = long long;
 const ll INF = (1LL << 62);
 
 // 확장 유클리드 알고리즘
+// ax + by = gcd(a, b)를 만족하는 x, y를 구합니다.
 ll extgcd(ll a, ll b, ll &x, ll &y) {
     if (b == 0) {
         x = 1;
@@ -151,10 +152,10 @@ int main() {
         for (int i = 0; i < R; i++) {
             cin >> B[i];
             B[i]--;
-        }
+        }//B[i]: i번 개구리의 초기 위치
+//delta[i]: i번 개구리가 K분 동안 이동한 총 거리 mod N
+//pos[i][s]: i번 개구리가 첫 번째 패턴의 s분 시점에 있는 위치
 
-        // 각 개구리의 주기 내 위치와
-        // 한 주기 동안의 이동량 계산
         for (int i = 0; i < R; i++) {
             ll cur = B[i];
 
@@ -171,13 +172,13 @@ int main() {
 
         vector<ll> dist(R, INF);
         vector<bool> visited(R, false);
-
+//dist[i]는 i번 개구리가 감염되는 가장 빠른 시각
+//visited[i]는 i번 개구리의 최초 감염 시각이 확정되었는지를 나타냄.
         dist[0] = 0;
 
         // 시간에 의존하는 최단 경로
         for (int rep = 0; rep < R; rep++) {
-            int u = -1;
-
+            int u = -1;//아직 개구리 선택x
             for (int i = 0; i < R; i++) {
                 if (!visited[i] &&
                     (u == -1 || dist[i] < dist[u])) {
