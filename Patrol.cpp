@@ -33,10 +33,12 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-int N, W;
-vector<pair<int, int>> events;
+int N, W;// 도시 크기, 사건 개수
+vector<pair<int, int>> events;//사건이 발생하는 좌표
 vector<vector<int>> dp;
+//dp[a][b]:a번째 사건까지 경찰차 1이 처리하고, b번째 사건까지 경찰차 2가 처리했을 때, 최소 이동 거리
 vector<vector<int>> choice;
+//현재 상태에서 다음 사건을 경찰차 1이 처리할지, 경찰차 2가 처리할지 선택
 
 int dist(int x1, int y1, int x2, int y2) {
     return abs(x1 - x2) + abs(y1 - y2);
@@ -44,7 +46,7 @@ int dist(int x1, int y1, int x2, int y2) {
 
 int solve(int a, int b) {
     int next = max(a, b) + 1;
-
+//a: 경찰차 1이 처리한 사건의 번호, b: 경찰차 2가 처리한 사건의 번호, next: 다음 사건 번호
     // 모든 사건을 처리한 경우
     if (next > W)
         return 0;
