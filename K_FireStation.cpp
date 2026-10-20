@@ -47,7 +47,7 @@ pair<int, long double> farthest(
         }
     }
 
-    int farNode = start;//현재까지 발견한 가장 먼 정점 번호
+    int farNode = start;
     long double farDist = 0;
 
     for (int i = 1; i <= N; i++) {
