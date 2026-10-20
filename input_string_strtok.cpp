@@ -1,3 +1,4 @@
+//N개의 줄을 입력받고, 각 줄을 공백 단위로 나누어 단어를 하나씩 출력하는 프로그램
 #include <iostream>
 #include <string>
 #include <sstream>

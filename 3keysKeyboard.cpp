@@ -21,7 +21,7 @@ int minSteps(int N) {
     vector<vector<int>> dist(
         LIMIT + 1, vector<int>(LIMIT + 1, -1)
     );
-
+//dist[s][c]는 화면에 A가 s개 있고, 클립보드에 c개 있는 상태까지 도달하는 최소 연산 횟수
     queue<pair<int, int>> q;
 
     q.push({1, 0});
