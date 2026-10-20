@@ -31,20 +31,20 @@ using namespace std;
 const int INF = 1e9;
 
 int N;
-vector<vector<int>> W;
+vector<vector<int>> W;// W[i][j]: i에서 j로 이동하는 비용
 vector<vector<int>> dp;
+// dp[cur][mask]: cur도시에서 mask에 표시된 도시들을 방문한 상태에서 최소 비용
 
 int tsp(int cur, int mask) {
     // 모든 도시를 방문한 경우
-    if (mask == (1 << N) - 1) {
-        // 출발 도시(0번)로 돌아갈 수 있는가?
-        if (W[cur][0] != 0)
+    if (mask == (1 << N) - 1) {//(1 << N) - 1:모든 비트가 1이 됨
+        if (W[cur][0] != 0)//값이 0이면 이동할 수 없는 경로
             return W[cur][0];
 
-        return INF;
+        return INF;//모든 도시를 방문했지만 출발점으로 돌아갈 수 없는 경우
     }
 
-    int &ret = dp[cur][mask];
+    int &ret = dp[cur][mask];// cur: 현재 도시, mask:방문한 도시 집합
 
     if (ret != -1)
         return ret;
