@@ -154,7 +154,11 @@ int dfs(int x, int y, bool &touch_edge) {
 
     return count;
 }
-
+/*가장자리를 발견하더라도 나머지 연결된 집들을 계속 탐색.
+그 이유는 visited를 통해 해당 단지의 모든 집을 방문 처리해야 하기 때문.
+만약 가장자리를 발견하자마자 DFS를 종료하면, 같은 단지의 일부 집이 방문되지 않은 채 남을 수 있음.
+그러면 main()의 이중 반복문에서 그 집을 새로운 단지로 잘못 인식할 가능성이 있음.
+*/
 void sort_array(int arr[], int size) {
     for (int i = 0; i < size - 1; i++) {
         for (int j = i + 1; j < size; j++) {
