@@ -92,15 +92,15 @@ int main() {
     vector<ll> left(M, 0), right(M, 0);
 
     for (int u : order) {
-        if (group[u] == -1)
-            group[u] = group[parent[u]];
+        if (group[u] == -1)//그루핑이 안 되어있는 경우
+            group[u] = group[parent[u]];//부모의 그룹 넘버를 자식에게 물려줌.
 
         int i = group[u];
 
         ll side = dist[u] - dist[path[i]];
-
+//side는 지름 경로에서 벗어나 가지로 들어간 거리
         left[i] = max(left[i], dist[u]);
-
+//left[i]는 group i에 속한 정점들 중 A에서 가장 먼 정점까지의 거리
         right[i] = max(
             right[i],
             D - dist[path[i]] + side
