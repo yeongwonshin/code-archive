@@ -104,9 +104,10 @@ int main() {
         right[i] = max(
             right[i],
             D - dist[path[i]] + side
-        );
+        );//right[i]:group i에 속한 정점들 중 B에서 가장 먼 정점까지의 거리
     }
-
+//left와 right를 구하는 이유는 지름 경로에서 간선 하나를 끊었을 때,
+//나뉜 두 트리에서 각각 A와 B로부터 가장 먼 정점까지의 거리를 빠르게 알아내기 위해서
     // A쪽의 누적 최대 거리
     for (int i = 1; i < M; i++)
         left[i] = max(left[i], left[i - 1]);
