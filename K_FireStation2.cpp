@@ -1,9 +1,12 @@
+
 #include <bits/stdc++.h>
 using namespace std;
 
-struct Edge{
+using ll = long long;
+
+struct Edge {
     int to;
-    long long w;
+    ll w;
 };
 
 int main() {
@@ -12,151 +15,113 @@ int main() {
 
     int N, K;
     cin >> N >> K;
-    vector<vector<Edge>> graph(N+1);
 
-    for (int i = 0; i < N - 1; ++i) {
-        int U, V;
-        long long W;
-        cin >> U >> V >> W;
-        graph[U].push_back({V, W});
-        graph[V].push_back({U, W});
+    vector<vector<Edge>> graph(N + 1);
 
+    for (int i = 0; i < N - 1; i++) {
+        int u, v;
+        ll w;
+        cin >> u >> v >> w;
+
+        graph[u].push_back({v, w});
+        graph[v].push_back({u, w});
     }
-    if(N==1){
-        cout<<0<<'\n';
-        return 0;
-    }
-    vector<int> parent(N+1, 0);
-    vector<long long> parentWeight(N+1, 0);
-    vector<int> order;
-    order.reserve(N);
 
-    stack<int> st;
-    st.push(1);
-    parent[1]=-1;
+    vector<ll> dist;
+    vector<int> parent, order;
 
-    while(!st.empty()){
-        int u = st.top();
-        st.pop();
-        order.push_back(u);
-        for(auto &e: graph[u]){
-            int v= e.to;
-            if(v==parent[u])continue;
-//트리는 무방향 그래프이므로 자식에서 부모로 다시 이동하는 것을 방지하기 위함.
-            parent[v]=u;
-            parentWeight[v]=e.w;
-            st.push(v);
-        }
-    }
-    vector<long long> downHeight(N+1, 0);
-    vector<long long> downDiameter(N+1, 0);
-    for(int idx = N-1;idx>=0;idx--){
-        int u = order[idx];
-        long long firstHeight=0;
-        long long secondHeight=0;
-        long long bestDiameter=0;
+    // DFS: 가장 먼 정점 찾기 + 부모와 방문 순서 기록
+    auto dfs = [&](int start) {
+        dist.assign(N + 1, -1);
+        parent.assign(N + 1, -1);
+        order.clear();
 
-        for(auto &e: graph[u]){
-            int v = e.to;
-            if(parent[v]!=u) continue;
+        stack<int> st;
+        st.push(start);
+        dist[start] = 0;
 
-            bestDiameter=max(bestDiameter, downDiameter[v]);
-            long long h = e.w + downHeight[v];
-            if(h>=firstHeight){
-                secondHeight = firstHeight;
-                firstHeight = h;
+        int far = start;
 
+        while (!st.empty()) {
+            int u = st.top();
+            st.pop();
+
+            order.push_back(u);
+
+            if (dist[u] > dist[far])
+                far = u;
+
+            for (auto [v, w] : graph[u]) {
+                if (dist[v] != -1) continue;
+
+                dist[v] = dist[u] + w;
+                parent[v] = u;
+                st.push(v);
             }
-            else if (h>secondHeight) secondHeight= h;
-
         }
-        downHeight[u]=firstHeight;
-        downDiameter[u]=max(bestDiameter, firstHeight+secondHeight);
-    }
-    if (K==1){
-        cout<<downDiameter[1]<<'\n';
-        return 0;
-    }
-    vector<long long> upHeight(N+1, 0);
-    vector<long long> upDiameter(N+1, 0);
-    long long answer = LLONG_MAX;
-    const long long NEG = LLONG_MIN / 4;
-    for(int u : order){
-        array<pair<long long, int>, 3> topHeight;
-        for(auto &p: topHeight) p={NEG, -1000000000};
-        auto addHeight = [&](long long value, int id){
-             pair<long long, int> cur = {value, id};
-             
-             for(int i=0;i<3;i++){
-                 if(cur.first>topHeight[i].first){
-                     swap(cur, topHeight[i]);
-                 }
-             }
-        };
-        array<pair<long long, int>, 2> topDiameter;
-        
-        for(auto &p:topDiameter)p={NEG, -1000000000};
-        auto addDiameter= [&](long long value, int id){
-            pair<long long, int> cur = {value, id};
-
-            for(int i=0;i<2;i++){
-                if(cur.first>topDiameter[i].first){
-                    swap(cur, topDiameter[i]);
-                }
-        }
+        return far;
     };
-    addHeight(0, 0);
-    addDiameter(0, 0);
 
-    if(parent[u]!=-1){
-        addHeight(upHeight[u], -1);
-        addDiameter(upDiameter[u], -1);
+    // 전체 트리의 지름 찾기
+    int A = dfs(1);
+    int B = dfs(A);
+
+    ll D = dist[B];
+
+    if (K == 1 || D == 0) {
+        cout << (K == 1 ? D : 0) << '\n';
+        return 0;
     }
-    for(auto &e : graph[u]){
-        int v = e.to;
-        if(parent[v]!=u) continue;
 
-        addHeight(
-            e.w + downHeight[v],
-            v
+    // 지름 경로 A -> B 복원
+    vector<int> path;
+
+    for (int u = B; u != -1; u = parent[u])
+        path.push_back(u);
+
+    reverse(path.begin(), path.end());
+
+    int M = path.size();
+
+    // 각 정점이 지름 경로의 어느 정점에 붙어 있는지 기록
+    vector<int> group(N + 1, -1);
+
+    for (int i = 0; i < M; i++)
+        group[path[i]] = i;
+
+    vector<ll> left(M, 0), right(M, 0);
+
+    for (int u : order) {
+        if (group[u] == -1)
+            group[u] = group[parent[u]];
+
+        int i = group[u];
+
+        ll side = dist[u] - dist[path[i]];
+
+        left[i] = max(left[i], dist[u]);
+
+        right[i] = max(
+            right[i],
+            D - dist[path[i]] + side
         );
-        addDiameter(downDiameter[v], v);
     }
-    for(auto &e : graph[u]){
-        int v= e.to;
-        if(parent[v]!=u)continue;
 
-        long long h1 = NEG;
-        long long h2 = NEG;
-        
-        for(auto [value, id]: topHeight){
-            if (id == v)continue;
-            if(h1==NEG)h1=value;
-            else {
-                h2= value;
-                break;
-            }
-        }
-        if(h1==NEG) h1=0;
+    // A쪽의 누적 최대 거리
+    for (int i = 1; i < M; i++)
+        left[i] = max(left[i], left[i - 1]);
 
-        long long internalDiameter = 0;
-        for(auto [value, id]: topDiameter){
-            if(id == v)continue;
-            internalDiameter = max(0LL, value);
-            break;
-        }
-        long long throughU = 0;
+    // B쪽의 누적 최대 거리
+    for (int i = M - 2; i >= 0; i--)
+        right[i] = max(right[i], right[i + 1]);
 
-        if(h2!=NEG)throughU= h1+h2;
+    ll answer = LLONG_MAX;
 
-        upDiameter[v]=max(internalDiameter, throughU);
-        upHeight[v]=e.w + h1;
-
-        long long candidate = max(downDiameter[v], upDiameter[v]);
+    // 지름 경로 위의 간선을 하나씩 제거
+    for (int i = 0; i + 1 < M; i++) {
+        ll candidate = max(left[i], right[i + 1]);
         answer = min(answer, candidate);
     }
-    }
-    cout<<answer<<'\n';
 
-    return 0;
+    cout << answer << '\n';
 }
