@@ -115,7 +115,7 @@ int main() {
     // B쪽의 누적 최대 거리
     for (int i = M - 2; i >= 0; i--)
         right[i] = max(right[i], right[i + 1]);
-
+//번째 그룹부터 맨 오른쪽(B) 그룹까지의 최댓값을 저장해야 하기 때문에 역순으로 계산
     ll answer = LLONG_MAX;
 
     // 지름 경로 위의 간선을 하나씩 제거
