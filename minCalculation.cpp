@@ -13,12 +13,13 @@ vector<pair<int, int>> parentPair;
 // 현재 pos까지 만들었을 때
 // maxDepth 이내에 N을 만들 수 있는지 탐색
 bool dfs(int pos) {
+//현재까지 pos번 곱셈을 수행했을 때, 남은 횟수 안에 목표 지수 N에 도달할 수 있는지 탐색하는 함수
     long long current = chainValue[pos];
 
     // 정확히 허용된 곱셈 횟수만큼 사용
     if (pos == maxDepth) {
         return current == N;
-    }
+    }//허용된 횟수를 모두 사용했을 때 목표 지수 N과 같으면 성공, 아니면 실패
 
     // -----------------------------
     // 가지치기:
