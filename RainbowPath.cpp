@@ -27,10 +27,11 @@ int main() {
     dist[S]=0;
     
     vector<int> id(N+1, -1);
-    
+    //id[v]는 원래 정점 번호 v를 현재 색상의 그래프에서 몇 번 정점으로 사용할지 저장
     for(int color = 1; color <=K; color++){
        if(edgesByColor[color].empty()) continue;
        vector<int> vertices;
+    //임시 번호에 대응하는 원래 정점 번호
        for(auto &e : edgesByColor[color]){
            if (id[e.u]==-1){
                id[e.u]= vertices.size();
