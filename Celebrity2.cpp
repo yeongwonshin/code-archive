@@ -76,7 +76,8 @@ int main(){
     //예선에서 탈락한 사람들을 제외하고 나머지 사람들을 current에 넣는다.
     for(int person = 2*preliminaryMatches+1;person<=n;person++){
         current[currentCount++]=person;
-    }
+    }//부전승인 사람들을 current(후보)에 넣는다.
+//person = 2 * preliminaryMatches + 1부터 시작하는 이유는 앞의 2 * preliminaryMatches명은 이미 예선 경기에 참가했기 때문
     
     //토너먼트 진행
     while(currentCount>1){
@@ -86,9 +87,7 @@ int main(){
              int b = current[i+1];
              next[nextCount++]= play_match(a,b);
         }
-        int *temp = current;
-        current = next;
-        next=temp;
+        swap(current, next);
         currentCount=nextCount;
     }
     
