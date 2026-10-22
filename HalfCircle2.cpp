@@ -31,7 +31,6 @@ int main() {
         long double cross = x0 * Y[i] - y0*X[i];
         long double dot = x0*X[i]+y0*Y[i];
         long double angle = atan2l(cross, dot);
-        
         if(fabsl(fabsl(angle)-PI)<=EPS){
             hasAntipodal=true;
             continue;
