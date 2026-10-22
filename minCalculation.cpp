@@ -37,13 +37,14 @@ bool dfs(int pos) {
     if (maximumPossible < N)
         return false;
 
-    // 같은 값을 여러 방식으로 만드는 것을 방지
+   
     unordered_set<long long> used;
-
-    struct Candidate {
-        long long value;
-        int left;
-        int right;
+//현재 DFS 단계에서 이미 생성한 지수를 기록
+ // 같은 값을 여러 방식으로 만드는 것을 방지 
+struct Candidate {
+        long long value;//새로 만들어지는 지수
+        int left;//첫 번째로 곱해지는 지수의 위치
+        int right;//두 번째로 곱해지는 지수의 위치
     };
 
     vector<Candidate> candidates;
