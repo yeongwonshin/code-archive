@@ -49,6 +49,7 @@ int main() {
     // 나머지 사람 확인
     for (int i = 2; i <= N; i++) {
         if (W == MAX_W) break;
+        //MAX_W는 최대 재산이므로 더 이상 확인할 필요 없음.
 
         // 현재 최대 재산보다 많은지 질문
         if (!ask(i, W + 1)) {
