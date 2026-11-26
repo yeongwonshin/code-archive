@@ -3,7 +3,37 @@
 #include <string>
 
 using namespace std;
+/*vector<int> pebbles(int N, int K, const string& S) {
+    vector<int> ans;
+    deque<int> dq;
 
+    int left = 0;
+    int maxLen = 0;
+
+    for (int right = 0; right < N; right++) {
+
+        if (S[right] == 'W') {
+            dq.push_back(right);
+        }
+
+        if (dq.size() > K) {
+            left = dq.front() + 1;
+            dq.pop_front();
+        }
+
+        if (right - left + 1 > maxLen) {
+            maxLen = right - left + 1;
+            ans.assign(dq.begin(), dq.end());
+        }
+
+        if (N - left <= maxLen) {
+            break;
+        }
+    }
+
+    return ans;
+}
+*/
 //sliding window approach
 vector<int> pebbles(int N, int K, string& S) {
     vector<int> ans;
