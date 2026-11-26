@@ -31,6 +31,8 @@ vector<int> pebbles(int N, int K, string S) {
             bestRight=right;
 
         }
+        if (N-left<=maxLen) break;
+
     }
     for (int i =bestLeft;i<=bestRight;i++){
         if(S[i]=='W') ans.push_back(i);
