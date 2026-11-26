@@ -5,7 +5,7 @@
 using namespace std;
 
 //sliding window approach
-vector<int> pebbles(int N, int K, string S) {
+vector<int> pebbles(int N, int K, string& S) {
     vector<int> ans;
     // TODO
     // You should choose the indices and put them into
