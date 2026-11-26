@@ -51,7 +51,7 @@ vector<int> pebbles(int N, int K, string& S) {
 
     for(int right =0;right<N;right++){
         if(S[right]=='W')white++;
-        while(white>K){
+        if(white>K){
             if(S[left]=='W') white--;
             left++;
         }
